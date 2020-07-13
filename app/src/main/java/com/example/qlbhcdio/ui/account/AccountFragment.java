@@ -1,36 +1,34 @@
 package com.example.qlbhcdio.ui.account;
 
-import androidx.lifecycle.ViewModelProviders;
-
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.qlbhcdio.R;
+import com.example.qlbhcdio.model.Authentication;
+import com.example.qlbhcdio.model.MessengerRes;
 import com.example.qlbhcdio.model.User;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class AccountFragment extends Fragment implements View.OnClickListener{
+public class AccountFragment extends Fragment implements View.OnClickListener,
+        ViewAccount.View {
 
-    private AccountViewModel mViewModel;
-    private User userCurrent;
-    private TextView mName;
-    private TextInputEditText mPassword,mAddress,mNumPhone;
-    private Button btnEdit,btnSave;
+    private AccountPresenter presenter;
+    private TextInputEditText mPassword,
+            mAddress,
+            mNumPhone,
+            mNameUser;
+    private Button btnEdit, btnSave;
 
-    public AccountFragment(User user) {
-        this.userCurrent = user;
-    }
 
     public AccountFragment() {
 
@@ -44,58 +42,101 @@ public class AccountFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.account_fragment, container, false);
-        mName = view.findViewById(R.id.tv_name_profile);
-        mAddress = view.findViewById(R.id.edt_address);
-        mPassword = view.findViewById(R.id.edt_password);
-        mNumPhone = view.findViewById(R.id.edt_numPhone);
-        btnEdit = view.findViewById(R.id.btn_edit);
-        btnSave = view.findViewById(R.id.btn_save);
-        btnSave.setOnClickListener(this);
-        btnEdit.setOnClickListener(this);
+        bindingIU(view);
+        initViews();
+        initData();
+        handleEvents();
         return view;
     }
 
-    private void setup() {
-        mName.setText(userCurrent.getName());
-        mNumPhone.setText(userCurrent.getNumPhone());
-        mPassword.setText(userCurrent.getPassword());
-        mAddress.setText(userCurrent.getAddress());
+    private void handleEvents() {
+        btnSave.setOnClickListener(this);
+        btnEdit.setOnClickListener(this);
+    }
+
+    private void initData() {
+        presenter = new AccountPresenter(this);
+        setUpUser();
+    }
+
+    private void initViews() {
+    }
+
+    private void bindingIU(View view) {
+        mAddress = view.findViewById(R.id.edt_address);
+        mPassword = view.findViewById(R.id.edt_password);
+        mNumPhone = view.findViewById(R.id.edt_numPhone);
+        mNameUser = view.findViewById(R.id.edt_name);
+        btnEdit = view.findViewById(R.id.btn_edit);
+        btnSave = view.findViewById(R.id.btn_save);
+    }
+
+    private void setUpUser() {
+        User user = Authentication.getInstance().getUserCurrent();
+        mNameUser.setText(user.getName());
+        mNumPhone.setText(user.getNumPhone());
+        mPassword.setText(user.getPassword());
+        mAddress.setText(user.getAddress());
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(AccountViewModel.class);
-        setup();
-        // TODO: Use the ViewModel
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btn_edit :onEditAndSave(true) ;
+        switch (v.getId()) {
+            case R.id.btn_edit:
+                onEditAndSave(true);
                 break;
 
-            case R.id.btn_save : onEditAndSave(false) ;
+            case R.id.btn_save:
+                onEditAndSave(false);
+                onSave();
                 break;
         }
     }
-    void onEditAndSave(boolean b){
+
+    private void onSave() {
+        presenter.updateAccount(mNameUser.getText().toString(),
+                mAddress.getText().toString(),
+                mNumPhone.getText().toString());
+    }
+
+    void onEditAndSave(boolean b) {
         mNumPhone.setEnabled(b);
-        mPassword.setEnabled(b);
+        mNameUser.setEnabled(b);
         mAddress.setEnabled(b);
-        if(b){
-            // todo handle API
+        if (b) {
             btnSave.setVisibility(View.VISIBLE);
             btnEdit.setVisibility(View.INVISIBLE);
-        }else {
+        } else {
             btnSave.setVisibility(View.INVISIBLE);
             btnEdit.setVisibility(View.VISIBLE);
         }
 
     }
 
+    @Override
+    public void getError(String text) {
+        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+    }
 
+    @Override
+    public void onUpdate(MessengerRes messengerRes) {
+        setUpUser();
+        Toast.makeText(getContext(), messengerRes.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onName(String s) {
+        mNameUser.setError(s);
+    }
+
+    @Override
+    public void onNumPhone(String s) {
+        mNumPhone.setError(s);
+    }
 }

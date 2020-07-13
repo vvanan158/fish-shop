@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="15dp"
+        android:id="@+id/CardView_Cart"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:elevation="1dp"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/img_itemDetail"
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
+
+            <RelativeLayout
+                android:id="@+id/SizeBox"
+                android:layout_width="15dp"
+                android:layout_height="100dp"
+                android:layout_toRightOf="@id/img_itemDetail" />
+
+            <TextView
+                android:id="@+id/tv_name_itemDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_toRightOf="@+id/SizeBox"
+                android:autoSizeMaxTextSize="8pt"
+                android:autoSizeMinTextSize="7pt"
+                android:autoSizeTextType="uniform"
+                android:gravity="center|start"
+                android:maxLines="2"
+                android:text="name"
+                android:textSize="8pt" />
+
+            <TextView
+                android:id="@+id/tv_price_itemDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_below="@+id/tv_name_itemDetail"
+                android:layout_toRightOf="@id/SizeBox"
+                android:gravity="center|start"
+                android:text="0"
+                android:textSize="7pt" />
+
+            <TextView
+                android:id="@+id/lb_dollar"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_below="@+id/tv_name_itemDetail"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/tv_price_itemDetail"
+                android:gravity="center|start"
+                android:text="đ"
+                android:textSize="7pt" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="7dp"
+                android:layout_toLeftOf="@+id/tv_amount_itemDetail"
+                android:text="x"
+                android:textSize="9pt" />
+
+            <TextView
+                android:layout_marginRight="10dp"
+                android:id="@+id/tv_amount_itemDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_alignParentRight="true"
+                android:text="1"
+                android:textSize="9pt" />
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

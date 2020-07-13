@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitData {
@@ -19,18 +20,17 @@ public class RetrofitData {
     public  static Retrofit getClient(String baseURL){
 
         OkHttpClient builder = new OkHttpClient.Builder()
-                                        .readTimeout(10000, TimeUnit.MILLISECONDS)
-                                        .writeTimeout(10000,TimeUnit.MILLISECONDS)
-                                        .connectTimeout(10000,TimeUnit.MILLISECONDS)
+                                        .readTimeout(10, TimeUnit.SECONDS)
+                                        .writeTimeout(10,TimeUnit.SECONDS)
+                                        .connectTimeout(30,TimeUnit.SECONDS)
                                         .retryOnConnectionFailure(true)
                                         .build();
-
-
         Gson gson = new GsonBuilder().setLenient().create();
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(baseURL)
                 .client(builder)
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
         return mRetrofit;
     }

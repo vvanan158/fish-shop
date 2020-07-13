@@ -8,17 +8,15 @@
     android:background="@color/cardview_light_background"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
     tools:context=".ui.shop.ShopFragment">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edt_layout_search"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:boxCornerRadiusBottomEnd="14dp"
             app:boxCornerRadiusBottomStart="14dp"
             app:boxCornerRadiusTopEnd="14dp"
@@ -33,14 +31,13 @@
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcl_kindfish"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edt_layout_search"
             android:layout_marginTop="-1dp"
-            android:overScrollMode="always"></androidx.recyclerview.widget.RecyclerView>
+            android:overScrollMode="always" />
 
         <TextView
             android:id="@+id/lb_favorite"
@@ -52,7 +49,7 @@
             android:text=" Yêu Thích"
             android:textColor="@android:color/tertiary_text_dark"
             android:textSize="10pt"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcl_favorite"
@@ -72,9 +69,9 @@
             android:text=" Trưng bày"
             android:textColor="@android:color/tertiary_text_dark"
             android:textSize="10pt"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold" />
 
-        <com.example.qlbhcdio.model.MyGirdView
+        <com.example.qlbhcdio.ui.widget.girdview.MyGirdView
             android:id="@+id/gird_sellFish"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -87,7 +84,7 @@
             android:overScrollMode="ifContentScrolls"
             android:smoothScrollbar="true"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="2dp"></com.example.qlbhcdio.model.MyGirdView>
+            android:verticalSpacing="2dp" />
     </RelativeLayout>
 
 </ScrollView>

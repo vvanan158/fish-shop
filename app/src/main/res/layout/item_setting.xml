@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/CardView_setting"
     android:padding="1dp"
-    android:layout_width="wrap_content"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
-        android:foreground="?attr/selectableItemBackground"
-        android:clickable="true"
         android:drawableRight="@drawable/ic_chevron_right"
         android:padding="10dp"
         android:id="@+id/tv_function"
@@ -16,4 +18,4 @@
         android:text="Chức năng"
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="8pt" />
-</RelativeLayout>
+</androidx.cardview.widget.CardView>

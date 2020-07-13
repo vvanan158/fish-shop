@@ -2,17 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:theme="@style/AppTheme.NoActionBar">
 
-    <TextView
-        android:id="@+id/tv_kind"
-        android:layout_width="150dp"
-        android:layout_height="45dp"
-        android:background="@drawable/ripple_text_kind"
-        android:gravity="center"
-        android:text="Lọai"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/CardView_Kind"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="15dp"
+        android:elevation="1dp"
         android:clickable="true"
-        android:textColor="#3F51B5"
-        android:textSize="9pt" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_kind"
+            android:layout_width="150dp"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="9pt" />
+    </androidx.cardview.widget.CardView>
+
 </RelativeLayout>

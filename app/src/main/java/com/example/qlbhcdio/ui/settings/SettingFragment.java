@@ -13,14 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
-import com.example.qlbhcdio.Adapter.SettingAdapter;
 import com.example.qlbhcdio.R;
 
-import java.util.List;
-
-public class SettingFragment extends Fragment {
+public class SettingFragment extends Fragment implements SettingAdapter.NavigatorToActivity {
 
     private SettingViewModel mViewModel;
 
@@ -36,12 +32,24 @@ public class SettingFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.setting_fragment, container, false);
-        recyclerViewSetting = view.findViewById(R.id.rcl_settings);
-        settingAdapter = new SettingAdapter(getContext());
+        bindingIU(view);
+        initViews();
+        return view;
+    }
+
+    private void initViews() {
+        initSettingFunction();
+    }
+
+    private void initSettingFunction() {
+        settingAdapter = new SettingAdapter(getContext(), this);
         recyclerViewSetting.setAdapter(settingAdapter);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         recyclerViewSetting.setLayoutManager(manager);
-        return view;
+    }
+
+    private void bindingIU(View view) {
+        recyclerViewSetting = view.findViewById(R.id.rcl_settings);
     }
 
     @Override
@@ -51,4 +59,7 @@ public class SettingFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    @Override
+    public void onNavigator() {
+    }
 }

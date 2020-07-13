@@ -2,27 +2,18 @@ package com.example.qlbhcdio.model;
 
 
 public class Kind {
-    private int Index;
-    private int image;
+    private String name;
 
-    public Kind(int index, int image) {
-        Index = index;
-        this.image = image;
+    public String getName() {
+        return name;
     }
 
-    public void setIndex(int index) {
-        Index = index;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public Kind(  String name) {
+        this.name = name;
     }
 
-    public int getIndex() {
-        return Index;
-    }
-
-    public int getImage() {
-        return image;
-    }
 }

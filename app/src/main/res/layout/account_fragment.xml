@@ -18,35 +18,21 @@
                 android:layout_height="250dp"
                 android:background="#58C3F3">
 
-
-                <ImageView
-                    android:id="@+id/img_avatar"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/cardview_light_background"
-                    android:bottomLeftRadius="20dip"
-                    android:bottomRightRadius="20dip"
-                    android:topLeftRadius="20dip"
-                    android:topRightRadius="20dip" />
-
-                <TextView
-                    android:id="@+id/tv_name_profile"
+                <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/img_avatar"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:drawableRight="@drawable/ic_baseline_edit_24"
-                    android:drawablePadding="5dp"
-                    android:gravity="center"
-                    android:maxLength="50"
-                    android:maxLines="1"
-                    android:text="Name"
-                    android:textColor="#FFF"
-                    android:textSize="10pt"
-                    android:textStyle="bold" />
+                    android:layout_centerInParent="true"
+                    app:cardCornerRadius="60dp">
+
+                    <ImageView
+                        android:id="@+id/img_avatar"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:background="@color/cardview_light_background"
+                        android:src="@drawable/avatarboy" />
+                </androidx.cardview.widget.CardView>
+
+
             </RelativeLayout>
 
             <androidx.cardview.widget.CardView
@@ -64,23 +50,25 @@
                     android:padding="20dp">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/text_layout_birth"
+                        android:id="@+id/text_layout_name"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginVertical="5dp"
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
                         app:boxCornerRadiusTopStart="14dp">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edt_birthDate"
+                            android:id="@+id/edt_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:enabled="false"
-                            android:hint="Ngày sinh"
+                            android:hint="Họ và tên"
+                            android:maxLength="30"
+                            android:maxLines="1"
                             android:textColorHint="@android:color/primary_text_light" />
-
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -88,7 +76,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/text_layout_birth"
+                        android:layout_below="@+id/text_layout_name"
                         android:layout_marginVertical="5dp"
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"

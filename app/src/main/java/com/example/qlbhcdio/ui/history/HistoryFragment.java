@@ -9,58 +9,71 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.qlbhcdio.Adapter.HistoryAdapter;
 import com.example.qlbhcdio.R;
-import com.example.qlbhcdio.model.Detail;
+import com.example.qlbhcdio.model.Invoice;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends Fragment implements HistoryAdapter.setOnClickItemHistory,
+        SwipeRefreshLayout.OnRefreshListener,
+        View.OnClickListener, ViewHistory.view {
 
     private HistoryViewModel mViewModel;
     private RecyclerView recyclerViewHistory;
     private HistoryAdapter mHistoryAdapter;
-    private List<Detail> mDetail;
+    private SwipeRefreshLayout refreshLayout;
+    private TextView tv_datePicker;
+    private PresenterHistory presenter=new PresenterHistory(this) ;
+    private List<Invoice> mHistory;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.history_fragment, container, false);
-        recyclerViewHistory = view.findViewById(R.id.rcl_history);
-        try {
-            addList();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        mHistoryAdapter = new HistoryAdapter(getContext(), mDetail);
-        recyclerViewHistory.setAdapter(mHistoryAdapter);
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
-        recyclerViewHistory.setLayoutManager(manager);
-
+        bindingIU(view);
+        initViews();
+        initData();
+        handleEvents();
         return view;
     }
 
-    private void addList() throws ParseException {
-        mDetail = new ArrayList<>();
-        mDetail.add(new Detail("0354", 200000, "6/11/2020"));
-        mDetail.add(new Detail("0154", 55000, "4/11/2020"));
-        mDetail.add(new Detail("0254", 150000, "2/11/2020"));
-        mDetail.add(new Detail("0374", 35000, "1/11/2020"));
-        mDetail.add(new Detail("0474", 25000, "22/10/2020"));
-        mDetail.add(new Detail("0464", 30000, "20/10/2020"));
-        mDetail.add(new Detail("2454", 65000, "11/10/2020"));
-        mDetail.add(new Detail("1474", 57000, "2/10/2020"));
-        mDetail.add(new Detail("1704", 60000, "28/9/2020"));
+    private void initData() {
+        presenter.fetchHistory();
+    }
 
+    private void handleEvents() {
+        refreshLayout.setOnRefreshListener(this);
+        tv_datePicker.setOnClickListener(this);
+    }
+
+    private void initViews() {
+        initHistory();
+
+    }
+
+    private void initHistory() {
+        mHistoryAdapter = new HistoryAdapter(getContext(), this,mHistory);
+        recyclerViewHistory.post(() -> recyclerViewHistory.setAdapter(mHistoryAdapter));
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+        recyclerViewHistory.setLayoutManager(manager);
+    }
+
+    private void bindingIU(View view) {
+        recyclerViewHistory = view.findViewById(R.id.rcl_history);
+        tv_datePicker = view.findViewById(R.id.tv_calendar);
+        refreshLayout = view.findViewById(R.id.swipe_history);
+        mHistory = new ArrayList<>();
     }
 
     @Override
@@ -72,5 +85,41 @@ public class HistoryFragment extends Fragment {
 
     public static HistoryFragment newInstance() {
         return new HistoryFragment();
+    }
+
+    @Override
+    public void setOnClick(int position) {
+
+    }
+
+    @Override
+    public void onRefresh() {
+        refreshLayout.setRefreshing(false);
+        initData();
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_calendar:  break;
+        }
+    }
+
+    @Override
+    public void onResultHistory(List<Invoice> inv) {
+            mHistory = inv;
+            initHistory();
+    }
+
+    @Override
+    public void onFailHistory(String error) {
+        Toast.makeText(getContext(),error,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onDestroy() {
+        presenter.dispose();
+        super.onDestroy();
     }
 }

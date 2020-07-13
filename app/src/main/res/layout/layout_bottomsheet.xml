@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -43,7 +44,7 @@
             android:src="@drawable/ic_baseline_add_shopping_cart" />
 
         <TextView
-            android:id="@+id/tv_sumMoney"
+            android:id="@+id/tv_cart_sumMoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -58,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
-            android:layout_toEndOf="@+id/tv_sumMoney"
+            android:layout_toEndOf="@+id/tv_cart_sumMoney"
             android:text="$"
             android:textSize="8pt" />
 

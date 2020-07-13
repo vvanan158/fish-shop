@@ -1,13 +1,13 @@
 package com.example.qlbhcdio.model;
 
+import android.util.Log;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
 public class Product implements Serializable {
-
-
     @SerializedName("MAHANG")
     @Expose
     private Integer id;
@@ -37,11 +37,6 @@ public class Product implements Serializable {
     public void setAmount(Integer amount) {
         this.amount = amount;
     }
-    public  void incrementAmount(){
-        this.amount = amount +1 ;
-    }
-
-
 
 
     public Integer getId() {
@@ -107,4 +102,5 @@ public class Product implements Serializable {
         this.money = money;
         this.description = description;
     }
+
 }

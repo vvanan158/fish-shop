@@ -8,31 +8,30 @@
         android:layout_width="175dp"
         android:layout_height="230dp"
         app:cardCornerRadius="12dp"
-        app:cardElevation="@dimen/cardview_default_elevation"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
-        app:cardUseCompatPadding="true">
+         >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/img_fish"
-                android:layout_width="match_parent"
-                android:layout_height="175dp"></ImageView>
+                android:id="@+id/img_product_fav"
+                android:layout_width="175dp"
+                android:layout_height="175dp" />
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/tv_title_fav"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/img_fish"
+                android:layout_below="@+id/img_product_fav"
                 android:layout_marginLeft="5dp"
                 android:autoSizeMaxTextSize="8pt"
                 android:autoSizeMinTextSize="7pt"
                 android:autoSizeTextType="uniform"
                 android:text="title"
-                android:textSize="7pt"></TextView>
+                android:textSize="7pt" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
